@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useRef } from "react";
- 
+
 import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -16,24 +16,19 @@ import firebase from "../firebase";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ScrollView } from "react-native-gesture-handler";
 
-const Login = ({ route, navigation }) => {
+const Profile = ({ route, navigation }) => {
   const { user } = route.params;
+  const [userdb, setuserdb] = useState( );
+   async function onScreenLoad  ()  {
+    const usersCollection =await firebase. firestore().collection('users').doc('aaa').get()
+    console.log(usersCollection.data().name);
+    setuserdb(usersCollection.data().name);
+  };
 
-  // <View style={styles.container}>
-
-  //   <View style={styles.card}>
-  //   <Text> profile:</Text>
-  //     <View style={styles.inputContainer}></View>
-  //     <Text> 0{ user . phoneNumber .slice(4) }</Text>
-
-  //     <View style={styles.buttonContainer}>
-  //       <TouchableOpacity onPress={out} style={styles.button}>
-  //         <Text style={styles.buttonText}>signout</Text>
-  //       </TouchableOpacity>
-  //     </View>
-  //   </View>
-  // </View>
-
+  useEffect(() => {
+    // write your code here, it's like componentWillMount
+    onScreenLoad();
+  }, []);
   const out = () => {
     firebase
       .auth()
@@ -59,7 +54,7 @@ const Login = ({ route, navigation }) => {
         </View>
 
         <Text> subscription info:</Text>
-
+        <Text> {userdb}</Text>
         <View style={styles.userBtnWrapper}>
           <TouchableOpacity style={styles.userBtn}>
             <Text style={styles.userBtnTxt}>کاراکردن</Text>
@@ -73,7 +68,7 @@ const Login = ({ route, navigation }) => {
   );
 };
 
-export default Login;
+export default Profile;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
