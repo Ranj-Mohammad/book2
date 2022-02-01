@@ -5,8 +5,9 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import Lib from "./screen/Library";
 import Start from "./screen/Start";
+import Search from "./screen/Search";
+import Settings from "./screen/Settings";
 import Ionicons from "react-native-vector-icons/Ionicons";
-const Stack = createStackNavigator();
 
 const Tab = createBottomTabNavigator();
 
@@ -19,8 +20,12 @@ function MyTabs() {
 
           if (route.name === "ماڵەوە") {
             iconName = focused ? "ios-home" : "ios-home-outline";
+          } else if (route.name === "گەڕان") {
+            iconName = focused ? "search" : "search-outline";
           } else if (route.name === "کتێب خانە") {
             iconName = focused ? "library" : "library";
+          } else if (route.name === "سێتتینگ") {
+            iconName = focused ? "settings" : "settings-outline";
           }
 
           // You can return any component that you like here!
@@ -36,8 +41,18 @@ function MyTabs() {
         options={{ headerShown: false }}
       />
       <Tab.Screen
+        name="گەڕان"
+        component={Search}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
         name="کتێب خانە"
         component={Lib}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="سێتتینگ"
+        component={Settings}
         options={{ headerShown: false }}
       />
     </Tab.Navigator>
